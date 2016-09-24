@@ -31,6 +31,7 @@ function bubbleSort(arr, compare, begin, end) {
   }
 }
 
+
 // selection sort
 function selectionSort(arr, compare, begin, end) {
   var len = arr.length;
@@ -63,6 +64,57 @@ function selectionSort(arr, compare, begin, end) {
     arr[min]=tmp;
   }
 }
+
+
+// insertion sort
+function insertionSort(arr, compare, begin, end) {
+  var len = arr.length;
+  var b, e;
+  if('number' == typeof begin) {
+    b=begin;
+  } else {
+    b=0;
+  }
+  if('number' == typeof end) {
+    e=end;
+  } else {
+    e=len-1;
+  }
+  var c=compare||function (a,b) {
+    if(a<b) return true;
+    return false;
+  }
+
+  var tmp=[];
+  for(var i=b; i<=e; i++) {
+    // insert function has many ways
+    directInsert(tmp, arr[i], c);
+  }
+
+  for(i=b;i<=e;i++) {
+    arr[i]=tmp[i-b];
+  }
+}
+// insert ele into arr
+function directInsert(arr, ele ,compare) {
+  var len=arr.length;
+  for(var i=0;i<len;i++) {
+    if(compare(ele,arr[i])) break;
+  }
+  for(var j=len;j>=i;) {
+    arr[j]=arr[--j];
+  }
+  arr[i]=ele;
+}
+// TODO there are other insert function
+
+
+// TODO
+// shell sort
+function shellSort(arr, compare, begin, end) {
+
+}
+
 
 
 

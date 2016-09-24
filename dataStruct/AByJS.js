@@ -21,6 +21,6 @@ Stack.prototype = {
   },
   getTop:function () {
     if(this.top<=this.base) return null;
-    return arr[this.top-1];
+    return this.arr[this.top-1];
   }
 }
