@@ -7,7 +7,7 @@ function bubbleSort(arr, compare, begin, end) {
   if('number' == typeof begin) {
     b=begin;
   } else {
-    b=0;
+    b=1;
   }
   if('number' == typeof end) {
     e=end;
@@ -21,7 +21,7 @@ function bubbleSort(arr, compare, begin, end) {
 
   var tmp;
   for(var i=0; i<e-b; i++) {
-    for(var j=b; j<e-i; j++) {
+    for(var j=b-1; j<e-i-1; j++) {
       if(!c(arr[j], arr[j+1])) {
         tmp=arr[j];
         arr[j]=arr[j+1];
@@ -31,7 +31,6 @@ function bubbleSort(arr, compare, begin, end) {
   }
 }
 
-
 // selection sort
 function selectionSort(arr, compare, begin, end) {
   var len = arr.length;
@@ -39,7 +38,7 @@ function selectionSort(arr, compare, begin, end) {
   if('number' == typeof begin) {
     b=begin;
   } else {
-    b=0;
+    b=1;
   }
   if('number' == typeof end) {
     e=end;
@@ -52,9 +51,9 @@ function selectionSort(arr, compare, begin, end) {
   }
 
   var min, tmp;
-  for(var i=b;i<=e-1;i++) {
+  for(var i=b-1;i<e-1;i++) {
     min=i;
-    for(var j=i+1;j<=e;j++) {
+    for(var j=i+1;j<e;j++) {
       if(c(arr[j],arr[min])) {
         min=j;
       }
@@ -64,7 +63,6 @@ function selectionSort(arr, compare, begin, end) {
     arr[min]=tmp;
   }
 }
-
 
 // insertion sort
 function insertionSort(arr, compare, begin, end) {
@@ -98,13 +96,13 @@ function insertionSort(arr, compare, begin, end) {
 // insert ele into arr
 function directInsert(arr, ele ,compare) {
   var len=arr.length;
-  for(var i=0;i<len;i++) {
-    if(compare(ele,arr[i])) break;
+  for(var i=0;i<len;) {
+    if(compare(ele,arr[i++])) break;
   }
-  for(var j=len;j>=i;) {
+  for(var j=len-1;j>=i;) {
     arr[j]=arr[--j];
   }
-  arr[i]=ele;
+  arr[--i]=ele;
 }
 // TODO there are other insert function
 
