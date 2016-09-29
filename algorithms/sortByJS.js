@@ -3,26 +3,21 @@
 // bubble sort
 function bubbleSort(arr, compare, begin, end) {
   var len = arr.length;
-  var b, e;
-  if('number' == typeof begin) {
-    b=begin;
-  } else {
-    b=1;
+  if('number'!=typeof begin || 1>begin) {
+    begin=1;
   }
-  if('number' == typeof end) {
-    e=end;
-  } else {
-    e=len;
+  if('number'!=typeof end || len<end || 1>end) {
+    end=len;
   }
-  var c=compare||function (a,b) {
+  compare=compare||function (a,b) {
     if(a<b) return true;
     return false;
   }
 
   var tmp;
-  for(var i=0; i<e-b; i++) {
-    for(var j=b-1; j<e-i-1; j++) {
-      if(!c(arr[j], arr[j+1])) {
+  for(var i=0; i<end-begin; i++) {
+    for(var j=begin-1; j<end-i-1; j++) {
+      if(!compare(arr[j], arr[j+1])) {
         tmp=arr[j];
         arr[j]=arr[j+1];
         arr[j+1]=tmp;
@@ -34,27 +29,22 @@ function bubbleSort(arr, compare, begin, end) {
 // selection sort
 function selectionSort(arr, compare, begin, end) {
   var len = arr.length;
-  var b, e;
-  if('number' == typeof begin) {
-    b=begin;
-  } else {
-    b=1;
+  if('number'!=typeof begin || 1>begin) {
+    begin=1;
   }
-  if('number' == typeof end) {
-    e=end;
-  } else {
-    e=len;
+  if('number'!=typeof end || len<end || 1>end) {
+    end=len;
   }
-  var c=compare||function (a,b) {
+  compare=compare||function (a,b) {
     if(a<b) return true;
     return false;
   }
 
   var min, tmp;
-  for(var i=b-1;i<e-1;i++) {
+  for(var i=begin-1;i<end-1;i++) {
     min=i;
-    for(var j=i+1;j<e;j++) {
-      if(c(arr[j],arr[min])) {
+    for(var j=i+1;j<end;j++) {
+      if(compare(arr[j],arr[min])) {
         min=j;
       }
     }
@@ -67,30 +57,25 @@ function selectionSort(arr, compare, begin, end) {
 // insertion sort
 function insertionSort(arr, compare, begin, end) {
   var len = arr.length;
-  var b, e;
-  if('number' == typeof begin) {
-    b=begin;
-  } else {
-    b=0;
+  if('number'!=typeof begin || 1>begin) {
+    begin=1;
   }
-  if('number' == typeof end) {
-    e=end;
-  } else {
-    e=len-1;
+  if('number'!=typeof end || len<end || 1>end) {
+    end=len;
   }
-  var c=compare||function (a,b) {
+  compare=compare||function (a,b) {
     if(a<b) return true;
     return false;
   }
 
   var tmp=[];
-  for(var i=b; i<=e; i++) {
+  for(var i=begin; i<=end; i++) {
     // insert function has many ways
-    directInsert(tmp, arr[i], c);
+    directInsert(tmp, arr[i], compare);
   }
 
-  for(i=b;i<=e;i++) {
-    arr[i]=tmp[i-b];
+  for(i=begin;i<=end;i++) {
+    arr[i]=tmp[i-begin];
   }
 }
 // insert ele into arr
@@ -116,43 +101,35 @@ function shellSort(arr, compare, begin, end) {
 
 
 
-// TODO there is an error when init with begin and end
 // quick sort
 function quickSort(arr, compare, begin, end) {
   var len = arr.length;
-  var b, e;
-  if('number' == typeof begin) {
-    b=begin;
-  } else {
-    b=0;
+  if('number'!=typeof begin || 1>begin) {
+    begin=1;
   }
-  if('number' == typeof end) {
-    e=end;
-  } else {
-    e=len;
+  if('number'!=typeof end || len<end || 1>end) {
+    end=len;
   }
-  var c=compare||function (a,b) {
+  compare=compare||function (a,b) {
     if(a<b) return true;
     return false;
   }
 
-  if(1>=(e-b)) return;
-  // use first as compare
-  var s=arr[b];
-  var fromBegin=0;
-  var fromEnd=0;
-  var tmp=[];
-  for(var i=b+1; i<e; i++){
-    if(c(arr[i],s)) {
-      tmp[b+fromBegin++]=arr[i];
-    } else {
-      tmp[e-1-fromEnd++]=arr[i];
-    }
+  if(begin>=end) return;
+  var i=begin-1, j=end;
+  key=arr[i];
+  while(i<j){
+    while(compare(key,arr[--j])&&i<j);
+    if(i>=j) break;
+    arr[i]=arr[j];
+    arr[j]=key;
+
+    while(compare(arr[++i],key)&&i<j);
+    if(i>=j) break;
+    arr[j]=arr[i];
+    arr[i]=key;
   }
-  tmp[b+fromBegin]=s;
-  for(var i=b; i<e; i++){
-    arr[i]=tmp[i];
-  }
-  quickSort(arr, compare, b, b+fromBegin);
-  quickSort(arr, compare, b+fromBegin+1, e);
+
+  quickSort(arr, compare, begin, i);
+  quickSort(arr, compare, i+2, end);
 }

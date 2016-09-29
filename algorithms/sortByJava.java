@@ -61,7 +61,34 @@ public class Sort {
   }
 
   // quick sort
-  public int[] quiceSort(int[] arr, int begin, int end){
-    
+  public static void quickSort(int[] arr, int begin, int end){
+	    int len=arr.length;
+    if(1>begin) begin=1;
+    if(1>end||len<end) end=len;
+
+    int index=sortOne(arr, begin-1, end-1);
+    if(index>begin){
+      quickSort(arr,begin,index);
+    }
+    if(end-2>index){
+      quickSort(arr,index+2,end);
+    }
   }
+  private static int sortOne(int[] arr, int i, int j){
+	    if(i>=j) return i;
+	    int key=arr[i];
+	    j++;
+
+	    while(true){
+	      while(arr[--j]>key);
+	      if(i>=j) return j;
+	      arr[i]=arr[j];
+	      arr[j]=key;
+	      while(arr[++i]<key);
+	      arr[j]=arr[i];
+	      arr[i]=key;
+	      if(i>=j) return i;
+	    }
+
+	  }
 }
