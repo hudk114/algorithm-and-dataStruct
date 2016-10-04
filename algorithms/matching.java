@@ -13,7 +13,7 @@ public int kmp(String strF, String strC, int pos){
     	i++;j++;
     }
     else {
-    	j=next[j-1];
+    	j=next[j]-1;
     }
   }
   if(j>=cLen) return i-j+1;
@@ -31,7 +31,7 @@ private int[] getNext(String str){
 		  }
 		  else{
         //i and j always point to the next ele
-			  j=arr[j-1];
+			  j=arr[j]-1;
 		  }
 	  }
 
