@@ -55,7 +55,7 @@ function selectionSort(arr, compare, begin, end) {
 }
 
 // insertion sort
-function insertionSort(arr, compare, begin, end) {
+function directInsertionSort(arr, compare, begin, end) {
   var len = arr.length;
   if('number'!=typeof begin || 1>begin) {
     begin=1;
@@ -68,34 +68,49 @@ function insertionSort(arr, compare, begin, end) {
     return false;
   }
 
-  var tmp=[];
-  for(var i=begin; i<=end; i++) {
-    // insert function has many ways
-    directInsert(tmp, arr[i], compare);
+  var i=0,j,tmp;
+  for(var i=begin;i<end;i++) {
+    j=i;
+    // compare, found the right position where arr[j] insert
+    tmp=arr[j];
+    while(j>begin-1&&tmp<arr[j-1]){
+      arr[j]=arr[--j];
+    }
+    arr[j]=tmp;
   }
 
-  for(i=begin;i<=end;i++) {
-    arr[i]=tmp[i-begin];
-  }
 }
-// insert ele into arr
-function directInsert(arr, ele ,compare) {
-  var len=arr.length;
-  for(var i=0;i<len;) {
-    if(compare(ele,arr[i++])) break;
-  }
-  for(var j=len-1;j>=i;) {
-    arr[j]=arr[--j];
-  }
-  arr[--i]=ele;
-}
-// TODO there are other insert function
 
-
-// TODO
+// TODO use the best step forward
 // shell sort
 function shellSort(arr, compare, begin, end) {
+  var len = arr.length;
+  if('number'!=typeof begin || 1>begin) {
+    begin=1;
+  }
+  if('number'!=typeof end || len<end || 1>end) {
+    end=len;
+  }
+  compare=compare||function (a,b) {
+    if(a<b) return true;
+    return false;
+  }
 
+  var i,j,tmp,step=Math.floor((end-begin+1)/2);
+  while(step>0){
+    // every element from the step to end need sort
+    for(i=begin-1+step;i<end;i++){
+      j=i;
+      tmp=arr[j];
+      while(j>begin+step-2&&tmp<arr[j-step]){
+        arr[j]=arr[j-step];
+        j-=step;
+      }
+      arr[j]=tmp;
+    }
+
+    step=Math.floor(step/2);
+  }
 }
 
 

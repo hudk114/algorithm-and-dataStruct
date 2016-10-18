@@ -35,29 +35,36 @@ public class Sort {
     }
   }
 
-  public void insertionSort(int[] arr, int begin, int end){
+  public void directInsertionSort(int[] arr, int begin, int end){
     int len=arr.length;
     if(1>begin) begin=1;
     if(1>end||len<end) end=len;
 
-    int[] tmp=new int[len];
-    for(int i=begin-1;i<end;i++){
-      directInsert(tmp,arr[i],i+1);
-    }
-    for(int i=begin-1;i<end;i++){
-      arr[i]=tmp[i];
+    for(int i=begin;i<end;i++){
+      int j=i;
+      int a=arr[j];
+      while(j>begin-1&&a<arr[j-1]){
+        arr[j]=arr[--j];
+      }
+      arr[j]=a;
     }
   }
-  private void directInsert(int[] arr, int ele, int len){
-    int i;
-    // when break, i always point to the next element of which ele should insert
-    for(i=0;i<len;){
-      if(arr[i++]>ele) break;
+
+  public void shellSort(int[] arr, int begin, int end){
+    int len=arr.length;
+    if(1>begin) begin=1;
+    if(1>end||len<end) end=len;
+
+    for(int step=(end-begin+1)/2;step>0;step/=2){
+      for(int i=begin-1+step;i<end;i++){
+        int j=i,tmp=arr[j];
+        while(j>begin-2+step&&arr[j]<arr[j-step]){
+          arr[j]=arr[j-step];
+          j-=step;
+        }
+        arr[j]=tmp;
+      }
     }
-    for(int j=len-1;j>=i;){
-      arr[j]=arr[--j];
-    }
-    arr[--i]=ele;
   }
 
   // quick sort
