@@ -1,4 +1,5 @@
 // compare is a function for compare two number, if the first argument is less than the second, return true, else return false
+// TODO all this function should use deep clone as object swap
 
 // bubble sort
 function bubbleSort(arr, compare, begin, end) {
@@ -51,6 +52,46 @@ function selectionSort(arr, compare, begin, end) {
     tmp=arr[i];
     arr[i]=arr[min];
     arr[min]=tmp;
+  }
+}
+// select two element in one traversal
+function advancedSelectionSort(arr, compare, begin, end) {
+  var len = arr.length;
+  if('number'!=typeof begin || 1>begin) {
+    begin=1;
+  }
+  if('number'!=typeof end || len<end || 1>end) {
+    end=len;
+  }
+  compare=compare||function (a,b) {
+    if(a<b) return true;
+    return false;
+  }
+
+  var min, max, tmp;
+  for(var i=begin-1,j=end-1;i<j;i++,j--){
+    min=i, max=j;
+    for(var k=i;k<=j;k++){
+      if(compare(arr[k],arr[min])){
+        min=k;
+      }
+      if(compare(arr[max],arr[k])){
+        max=k;
+      }
+    }
+    tmp=arr[i];
+    arr[i]=arr[min];
+    arr[min]=tmp;
+    // if the max is the first one, that means it is swaped
+    if(max==i){
+      tmp=arr[j];
+      arr[j]=arr[min];
+      arr[min]=tmp;
+    } else {
+      tmp=arr[j];
+      arr[j]=arr[max];
+      arr[max]=tmp;
+    }
   }
 }
 

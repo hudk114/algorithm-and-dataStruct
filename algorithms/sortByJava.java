@@ -34,6 +34,37 @@ public class Sort {
       arr[min]=tmp;
     }
   }
+  public void advancedSelectionSort(int[] arr, int begin, int end){
+    int len=arr.length;
+    if(1>begin) begin=1;
+    if(1>end||len<end) end=len;
+
+    int tmp, min, max;
+    for(int i=begin-1, j=end-1; i<j; i++, j--){
+      min=i;
+      max=j;
+      for(int k=i; k<=j; k++){
+        if(arr[k]<arr[min]){
+          min=k;
+        }
+        if(arr[k]>arr[max]){
+          max=k;
+        }
+      }
+      tmp=arr[i];
+      arr[i]=arr[min];
+      arr[min]=tmp;
+      tmp=arr[j];
+      if(i==max){
+        arr[j]=arr[min];
+        arr[min]=tmp;
+      }
+      else{
+        arr[j]=arr[max];
+        arr[max]=tmp;
+      }
+    }
+  }
 
   public void directInsertionSort(int[] arr, int begin, int end){
     int len=arr.length;
