@@ -1,3 +1,12 @@
+function deepClone(obj) {
+  if(typeof obj!='object') return obj;
+  var o=Array.isArray(obj)? []: {};
+  for(var i in obj){
+    o[i]=(typeof obj[i]=='object')?deepClone(obj[i]):obj[i];
+  }
+  return o;
+}
+
 /// stack
 var Stack=function () {
   this.top=0;
@@ -60,3 +69,54 @@ Queue.prototype={
     this.arr=[];
   }
 };
+
+// tree is an array which contains several treenode
+var Tree=function (tree) {
+  this.tree=tree? tree:{};
+}
+var TreeNode=function (data) {
+  this.data=data,
+  this.parent={},
+  this.children=[]
+}
+Tree.prototype={
+  constructor:Tree,
+  initTree:function (rootData) {
+    this.createNode(null, rootData);
+  },
+  createNode:function (parent, data) {
+     var node=parent?this.findNode(parent):null;
+     if(!node){
+       this.tree.root=new TreeNode(data);
+     } else if(-1==node) {
+
+     } else {
+       var n=new TreeNode(data);
+       n.parent=node;
+       node.children.push(n);
+     }
+  },
+  getRoot:function () {
+    return this.tree.root?this.tree.root:null;
+  },
+  getDepth:function() {
+
+  },
+  insertChild:function (parent, tree) {
+
+  },
+  deleteChild:function (parent) {
+
+  },
+  getParent:function (node) {
+
+  },
+  // if not found, return -1
+  findNode:function (node) {
+    // TODO
+  },
+  // return a deep clone tree
+  cloneTree:function () {
+
+  }
+}
