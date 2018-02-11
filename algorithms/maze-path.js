@@ -10,19 +10,27 @@ const maze = [
   [1, 1, 0, 0, 0]
 ];
 
-const move = function move(pos, direct) {
+const initStep = function initStep(step) {
+  step.available = [true, true, true, true];
+};
+
+const move = function move(step, direct) {
   switch (direct) {
     case 'up':
-      pos[0]--;
+      step.postion[0]--;
+      step.available[2] = false;
       break;
     case 'down':
-      pos[0]++;
+      step.postion[0]++;
+      step.available[0] = false;
       break;
     case 'left':
-      pos[1]--;
+      step.postion[1]--;
+      step.available[1] = false;
       break;
     case 'right':
-      pos[1]++;
+      step.postion[1]++;
+      step.available[3] = false;
       break;
     default:
       break;
@@ -31,14 +39,22 @@ const move = function move(pos, direct) {
 
 const mazePath = function mazePath(maze, start, end) {
   const stack = new Stack();
-  let curStep = deepClone(start);
+  // available means which direction is available to explore
+  // up right down left
+  let curStep = {
+    position: deepClone(start),
+    // TODO
+    available: [true, true, true, true]
+  };
 
   do {
     if (maze[curStep[0]][curStep[1]] === 0) {
+      const step = deepClone(curStep);
       stack.push(deepClone(curStep));
       if (curStep[0] === end[0] && curStep[1] === end[1]) {
         break;
       }
+      initStep(curStep);
       move(curStep, 'down');
     } else {
       if (stack.isEmpty()) {
