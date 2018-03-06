@@ -1,6 +1,12 @@
 const Stack = require('../data-struct/stack');
 const { deepClone } = require('../utils');
 
+// enum
+const DOWN = 0;
+const RIGHT = 1;
+const UP = 2;
+const LEFT = 3;
+
 const maze = [
   [0, 0, 0, 0, 0],
   [0, 1, 0, 1, 0],
@@ -9,6 +15,41 @@ const maze = [
   [1, 0, 0, 1, 0],
   [1, 1, 0, 0, 0]
 ];
+
+/**
+ * 
+ * @param {array} pos the position of the step
+ * @param {number} dir the direction next step
+ * @param {array} alr the direction which has been explored
+ */
+function Step(pos = [0, 0], dir = DOWN, alr = []) {
+  this.pos = pos;
+  this.dir = dir;
+  this.alr = alr;
+};
+
+Step.prototype = {
+  constructor: Step,
+  move (direct) {
+    // TODOsde judge alr
+    switch (direct) {
+      case UP:
+
+        break;
+      case DOWN:
+
+        break;
+      case RIGHT:
+
+        break;
+      case LEFT:
+
+        break;
+      default:
+        break;
+    }
+  },
+}
 
 const move = function move(pos, direct) {
   switch (direct) {
