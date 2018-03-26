@@ -32,13 +32,13 @@ Step.prototype = {
     const y = this.pos[1];
     switch (this.dir) {
       case DIRECT.UP:
-        return [x - 1, y];
-      case DIRECT.RIGHT:
-        return [x, y + 1];
-      case DIRECT.DOWN:
-        return [x + 1, y];
-      case DIRECT.LEFT:
         return [x, y - 1];
+      case DIRECT.RIGHT:
+        return [x + 1, y];
+      case DIRECT.DOWN:
+        return [x, y + 1];
+      case DIRECT.LEFT:
+        return [x - 1, y];
       default:
         return null;
     }
@@ -47,7 +47,15 @@ Step.prototype = {
 
 // judge if the pos is valuable (1, 2 or not in maze is not available)
 const judgeVal = (maze, pos) => {
+  const x = pos[0];
+  const y = pos[1];
 
+  if (y < 0 || y >= maze.length) return false;
+  
+  const a = maze[y];
+  if (x < 0 || x >= a.length) return false;
+
+  return a[x] === 0;
 };
 
 
@@ -55,60 +63,47 @@ const mazePath = function mazePath(maze, start, end) {
   const route = new Stack();
   let m = deepClone(maze);
 
-  if (!judgeVal(m, start)) {
-    throw new Error('params wrong');
-  }
-
-  let s = new Step(start, DIRECT.UP);
-  route.push(s);
-  let c = s.
+  let pos = start;
+  let step = null;
 
   do {
-    if (condition) {
-      
-    }
-  } while (condition);
-
-
-  if (!) {
-    
-  }
-
-  while (true) {
-    
-  }
-
-  // available means which direction is available to explore
-  // up right down left
-  let curStep = {
-    position: deepClone(start),
-    // TODO
-    available: [true, true, true, true]
-  };
-
-  do {
-    if (maze[curStep[0]][curStep[1]] === 0) {
-      const step = deepClone(curStep);
-      stack.push(deepClone(curStep));
-      if (curStep[0] === end[0] && curStep[1] === end[1]) {
+    if (judgeVal(m, pos)) {
+      if (pos[0] === end[0] && pos[1] === end[1]) {
+        route.push(new Step(pos, DIRECT.UP));
         break;
       }
-      initStep(curStep);
-      move(curStep, 'down');
+      step = new Step(pos, DIRECT.UP);
+      m[pos[1]][pos[0]] = 2;
+      route.push(step);
+      pos = step.nextStep();
     } else {
-      if (stack.isEmpty()) {
-        // gg
+      if (route.isEmpty()) {
         break;
       }
-
-      
-      
-      // TODO 回退
+      // 取出最后那步
+      step = route.pop();
+      step.dir++;
+      if (step.dir < DIRECT.OVER) {
+        pos = step.nextStep();
+        route.push(step);
+      } else {
+        // 当前的已经被踩过了，所以肯定无效下次还会弹出
+        pos = step.pos;
+      }
     }
+  } while (!route.isEmpty());
 
-  } while (stack.isEmpty());
+  if (!route.isEmpty()) {
+    let arr = [];
+    while(!route.isEmpty()) {
+      arr.unshift(route.pop().pos);
+    }
+    console.log(arr);
+  } else {
+    console.log('no path')
+  }
 };
 
-console.log(mazePath(maze));
+// mazePath(maze, [0, 0], [4, 5]);
 
 module.exports = mazePath;
