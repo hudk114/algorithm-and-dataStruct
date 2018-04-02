@@ -1,4 +1,4 @@
-const Stack = require('../../data-struct/stack');
+const Stack = require('../../data-struct/js/stack');
 const { deepClone } = require('../../utils');
 
 // enum
