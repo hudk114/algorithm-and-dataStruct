@@ -1,9 +1,9 @@
-const next = require('./next');
+const { next, kmpNext } = require('./next');
 
-function simple (str, subStr) {
+function simple (str, subStr, pos) {
   var arr = Array.apply(null, new Array(subStr));
 
-  let i = 0;
+  let i = pos;
   let j = 0;
 
   for (; i < str.length && j < subStr.length;) {
@@ -24,21 +24,18 @@ function simple (str, subStr) {
   return -1;
 }
 
-function kmp (str, subStr) {
-  var arr = Array.apply(null, new Array(subStr));
-  // next每一位使得N 0 ~ N i-1 === N j-i ~ N j-1 && N i !== N j 的最大i值
-  const next = next(arr);
+function kmp (str, subStr, pos) {
+  // const n = next(subStr);
+  const n = kmpNext(subStr);
 
-  let i = 0;
+  let i = pos;
   let j = 0;
   for (; i < str.length && j < subStr.length;) {
-    if (str[i] === subStr[j]) {
+    if (j === -1 || str[i] === subStr[j]) {
       i++;
       j++;
     } else {
-      let max = arrF[j];
-      let back = j - max;
-      j -= back;
+      j = n[j];
     }
   }
 
@@ -48,8 +45,6 @@ function kmp (str, subStr) {
   return -1;
 }
 
-// console.log(kmp('0000000000001', '0000001'));
-// console.log(times);
-console.log(next('ababaaababaa'.split('')));
+// console.log(kmp('abbaaaabaabcacasdfasdf', 'abaabcac', 0));
 
 module.exports = kmp;

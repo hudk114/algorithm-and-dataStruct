@@ -1,44 +1,116 @@
-/**
- * next的每项都是该项之前数组的最大相同前后缀
- * @param {Array} arr 传入的arr
- */
-const next = arr => {
-  arr = typeof arr === 'string' ? arr.split('') : arr;
+const fixArr = arr => {
+  return typeof arr === 'string' ? arr.split('') : arr;
+};
 
+const bCheck = arr => {
   if (arr.length === 0) {
     return null;
   }
-  if (arr.length === 1) {
-    return [-1];
+
+  return true;
+};
+
+/**
+ * next的每项都是该项之前数组的最大相同前后缀数值
+ * @param {Array} arr 传入的arr
+ */
+const next0 = arr => {
+  arr = fixArr(arr);
+
+  if (!bCheck(arr)) {
+    return bCheck(arr);
   }
-  
-  const next = [-1];
 
-  /**
-   * 第i个数与之前数值相等，最大匹配值是第i + 1的位置！
-   */
-  for (let i = 0; i < arr.length - 1; i++) {
-    // i的最大匹配为j，也就是0~j-1 === i-j~i-1
-    let j = next[i];
+  let next = [null];
+  for (let i = 1; i < arr.length; i++) {
+    let j = next[i - 1];
 
+    while (j !== null && arr[j] !== arr[i - 1]) {
+      j = next[j];
+    }
+    
+    if (j !== null) {
+      next[i] = j + 1;
+    } else {
+      next[i] = 0;
+    }
+  }
 
-    // 如果不等，最大子串肯定还是在原有的子串中
+  return next;
+}
+
+const next1 = arr => {
+  arr = fixArr(arr);
+
+  if (!bCheck(arr)) {
+    return bCheck(arr);
+  }
+
+  let next = [-1];
+  let i = 0;
+  let j = -1;
+  for (; i < arr.length - 1;) {
     while (j !== -1 && arr[j] !== arr[i]) {
       j = next[j];
     }
+    next[++i] = ++j;
+  }
 
-    // 相等，直接加一 
-    if (arr[j] === arr[i]) {
-      next[i + 1] = j + 1;
+  return next;
+}
+
+const next = arr => {
+  arr = fixArr(arr);
+
+  if (!bCheck(arr)) {
+    return bCheck(arr);
+  }
+
+  let next = [-1];
+  let i = 0;
+  let j = -1;
+  while (i < arr.length -1) {
+    if (j === -1 || arr[j] === arr[i]) {
+      next[++i] = ++j;
     } else {
-      // j = -1的情况，说明没有找到匹配
-      next[i + 1] = 0;
+      j = next[j];
+    }
+  }
+
+  return next;
+}
+
+const kmpNext = arr => {
+  arr = fixArr(arr);
+
+  if (!bCheck(arr)) {
+    return bCheck(arr);
+  }
+
+  let next = [-1];
+  let i = 0;
+  let j = -1;
+  while (i < arr.length -1) {
+    if (j === -1 || arr[j] === arr[i]) {
+      if (arr[++i] !== arr[++j]) {
+        next[i] = j;
+      } else {
+        next[i] = next[j];
+      }
+    } else {
+      j = next[j];
     }
   }
 
   return next;
 };
 
-console.log(next('abaabcac'));
+// console.log(next0('abaabcac'));
+// console.log(next1('abaabcac'));
+// console.log(next('abaabcac'));
+// console.log(kmpNext('abaabcac'));
 
-module.exports = next;
+module.exports = {
+  next,
+  kmpNext
+};
