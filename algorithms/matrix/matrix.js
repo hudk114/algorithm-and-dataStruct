@@ -58,6 +58,62 @@ class ArrayMatrix {
   }
 }
 
+function multArrayMatrix (matrixA, matrixB) {
+  if (matrixA.width !== matrixB.height) {
+    throw new Error('无法相乘！');
+  }
+
+  let answer = [];
+
+  // 获取matrixB每行第一个元素的起始点
+  let rPosB = [];
+  for (let i = 0; i < matrixB.height; i++) {
+    rPosB[i] = 0;
+  }
+  for (let i = 0; i < matrixB.arr.length; i++) {
+    rPosB[matrixB.arr[i].i]++;
+  }
+  let all = 0;
+  let long = rPosB[0];
+  for (let i = 0; i < rPosB.length; i++) {
+    long = rPosB[i];
+    rPosB[i] = all;
+    all += long;
+  }
+
+  let tmpLine = null;
+  // matrixA的当前指向元素
+  let mT = 0;
+  // answer的当前指向元素
+  let aT = 0;
+  for (let i = 0; i < matrixA.height; i++) {
+    tmpLine = [];
+    for (let j = 0; j < matrixB.width; j++) {
+      tmpLine[j] = 0;      
+    }
+    // 第i行仍然有元素
+    while (mT < matrixA.arr.length && matrixA.arr[mT].i === i) {
+      const node = matrixA.arr[mT++];
+      // node需要乘以node.j行的所有元素
+      let end = node.j < rPosB.length - 1 ? rPosB[node.j + 1] : matrixB.length;
+      for (let j = rPosB[node.j]; j < end; j++) {
+        // i是matrixB的序号
+        tmpLine[matrixB.arr[j].j] += node.val * matrixB.arr[j].val;
+      }
+    }
+
+    // 存储tmpLine到answer中
+    for (let j = 0; j < tmpLine.length; j++) {
+      if (tmpLine[j] !== 0) {
+        answer.push(new Node(i, j, tmpLine[j]));
+      }
+    }
+  }
+
+  return new ArrayMatrix(answer, matrixB.width, matrixA.height);
+}
+
+
 const m = new ArrayMatrix([
   new Node(0, 1, 12),
   new Node(0, 2, 9),
@@ -69,5 +125,26 @@ const m = new ArrayMatrix([
   new Node(5, 3, -7)
 ], 7, 6);
 
+const a = new ArrayMatrix([
+  new Node(0, 0, 3),
+  new Node(0, 3, 5),
+  new Node(1, 1, -1),
+  new Node(2, 0, 2)
+], 4, 3);
+
+const b = new ArrayMatrix([
+  new Node(0, 1, 2),
+  new Node(1, 0, 1),
+  new Node(2, 0, -2),
+  new Node(2, 1, 3)
+], 2, 4);
+
 console.log(m);
 console.log(m.transposition());
+console.log(multArrayMatrix(a, b));
+
+module.exports = {
+  Node,
+  ArrayMatrix,
+  multArrayMatrix
+};
