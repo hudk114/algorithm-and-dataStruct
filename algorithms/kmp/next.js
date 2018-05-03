@@ -28,7 +28,7 @@ const next0 = arr => {
     while (j !== null && arr[j] !== arr[i - 1]) {
       j = next[j];
     }
-    
+
     if (j !== null) {
       next[i] = j + 1;
     } else {
@@ -37,7 +37,7 @@ const next0 = arr => {
   }
 
   return next;
-}
+};
 
 const next1 = arr => {
   arr = fixArr(arr);
@@ -57,7 +57,7 @@ const next1 = arr => {
   }
 
   return next;
-}
+};
 
 const next = arr => {
   arr = fixArr(arr);
@@ -69,7 +69,7 @@ const next = arr => {
   let next = [-1];
   let i = 0;
   let j = -1;
-  while (i < arr.length -1) {
+  while (i < arr.length - 1) {
     if (j === -1 || arr[j] === arr[i]) {
       next[++i] = ++j;
     } else {
@@ -78,7 +78,7 @@ const next = arr => {
   }
 
   return next;
-}
+};
 
 const kmpNext = arr => {
   arr = fixArr(arr);
@@ -90,7 +90,7 @@ const kmpNext = arr => {
   let next = [-1];
   let i = 0;
   let j = -1;
-  while (i < arr.length -1) {
+  while (i < arr.length - 1) {
     if (j === -1 || arr[j] === arr[i]) {
       if (arr[++i] !== arr[++j]) {
         next[i] = j;

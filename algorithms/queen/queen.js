@@ -4,14 +4,11 @@
 var { deepClone } = require('../../utils');
 
 // 计算在pos处放queen后的新数组
-var getCArr = function(pos, array) {
+var getCArr = function (pos, array) {
   var a = deepClone(array);
   a.forEach((item, y) => {
     item.forEach((i, x, arr) => {
-      if (
-        x === pos[0] ||
-        Math.abs(x - pos[0]) === Math.abs(y - pos[1])
-      ) {
+      if (x === pos[0] || Math.abs(x - pos[0]) === Math.abs(y - pos[1])) {
         if (arr[x] === 0) {
           arr[x] = 1;
         }
@@ -26,7 +23,7 @@ var getCArr = function(pos, array) {
 };
 
 // 第index行的所有可能性
-var listInLine = function(index, array, number) {
+var listInLine = function (index, array, number) {
   // if (index === number) {
   //   console.log(array);
   //   return 1;
@@ -54,7 +51,7 @@ var listInLine = function(index, array, number) {
   }, 0);
 };
 
-var queen = function(number) {
+var queen = function (number) {
   var arr = [];
   var brr = [];
   for (var i = 0; i < number; i++) {

@@ -7,12 +7,10 @@ const judgeVal = (arr, x, number) => {
     }
     // 点坐标为（i, k）
     const i = arr[k];
-    let oX = parseInt(i, 10)
-      oY = parseInt(k, 10);
+    let oX = parseInt(i, 10);
+    oY = parseInt(k, 10);
 
-    if (x === oX ||
-      Math.abs(x - oX) === Math.abs(y - oY)
-    ) {
+    if (x === oX || Math.abs(x - oX) === Math.abs(y - oY)) {
       return false;
     }
   }

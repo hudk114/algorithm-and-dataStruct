@@ -20,14 +20,14 @@ const maze = [
   [1, 1, 0, 0, 0]
 ];
 
-function Step(pos, dir) {
+function Step (pos, dir) {
   this.pos = pos;
   this.dir = dir;
-};
+}
 
 Step.prototype = {
   constructor: Step,
-  nextStep() {
+  nextStep () {
     const x = this.pos[0];
     const y = this.pos[1];
     switch (this.dir) {
@@ -43,7 +43,7 @@ Step.prototype = {
         return null;
     }
   }
-}
+};
 
 // judge if the pos is valuable (1, 2 or not in maze is not available)
 const judgeVal = (maze, pos) => {
@@ -51,15 +51,14 @@ const judgeVal = (maze, pos) => {
   const y = pos[1];
 
   if (y < 0 || y >= maze.length) return false;
-  
+
   const a = maze[y];
   if (x < 0 || x >= a.length) return false;
 
   return a[x] === 0;
 };
 
-
-const mazePath = function mazePath(maze, start, end) {
+const mazePath = function mazePath (maze, start, end) {
   const route = new Stack();
   let m = deepClone(maze);
 
@@ -95,12 +94,12 @@ const mazePath = function mazePath(maze, start, end) {
 
   if (!route.isEmpty()) {
     let arr = [];
-    while(!route.isEmpty()) {
+    while (!route.isEmpty()) {
       arr.unshift(route.pop().pos);
     }
     console.log(arr);
   } else {
-    console.log('no path')
+    console.log('no path');
   }
 };
 

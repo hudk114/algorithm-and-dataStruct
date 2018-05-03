@@ -1,4 +1,4 @@
-const Queue = function() {
+const Queue = function () {
   this.front = 0;
   this.rear = 0;
   this.arr = [];
@@ -6,24 +6,24 @@ const Queue = function() {
 
 Queue.prototype = {
   constructor: Queue,
-  insert: function(val) {
+  insert: function (val) {
     this.arr.push(obj);
     this.rear++;
   },
-  shift: function() {
+  shift: function () {
     if (this.rear <= this.front) return null;
     const t = this.arr.shift();
     this.rear--;
     return t;
   },
-  getLength: function() {
+  getLength: function () {
     return this.rear - this.front;
   },
-  getHead: function() {
+  getHead: function () {
     if (this.rear <= this.front) return null;
     return this.arr[this.front];
   },
-  empty: function() {
+  empty: function () {
     this.front = 0;
     this.rear = 0;
     this.arr = [];

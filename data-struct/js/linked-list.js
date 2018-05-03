@@ -1,21 +1,21 @@
-const Node = function Node(data) {
+const Node = function Node (data) {
   this.data = data;
   this.next = null;
 };
 
-const LinkedList = function LinkedList() {
+const LinkedList = function LinkedList () {
   this.len = 0;
   this.firstNode = new Node(null);
 };
 
 LinkedList.prototype = {
   constructor: LinkedList,
-  _judgeMemory(index) {
+  _judgeMemory (index) {
     if (index >= this.len || index < 0) {
       throw new Error('out of memory');
     }
   },
-  getEle(index) {
+  getEle (index) {
     this._judgeMemory(index);
     let tmp = this.firstNode;
     let i = 0;
@@ -24,7 +24,7 @@ LinkedList.prototype = {
     }
     return tmp.data;
   },
-  _getEle(index) {
+  _getEle (index) {
     this._judgeMemory(index);
     let tmp = this.firstNode;
     let i = 0;
@@ -33,14 +33,12 @@ LinkedList.prototype = {
     }
     return tmp;
   },
-  insert(data, index = this.len) {
+  insert (data, index = this.len) {
     if (index > this.len || index < 0) {
       throw new Error('out of memory');
     }
 
-    let prior = index === 0 ?
-      this.firstNode :
-      this._getEle(index - 1);
+    let prior = index === 0 ? this.firstNode : this._getEle(index - 1);
 
     const tmp = new Node(data);
     tmp.next = prior.next;
@@ -48,19 +46,17 @@ LinkedList.prototype = {
     this.len++;
     return true;
   },
-  delete(index) {
+  delete (index) {
     this._judgeMemory();
 
-    let prior = index === 0 ?
-      this.firstNode :
-      this._getEle(index - 1);
+    let prior = index === 0 ? this.firstNode : this._getEle(index - 1);
 
     const tmp = prior.next;
     prior.next = prior.next.next;
     this.len--;
     return tmp;
   },
-  priorEle(data) {
+  priorEle (data) {
     let tmp = this.firstNode;
     let prior = null;
 
@@ -75,7 +71,7 @@ LinkedList.prototype = {
       return null;
     }
   },
-  nextEle(data) {
+  nextEle (data) {
     let tmp = this.firstNode;
     let prior = null;
 
@@ -91,5 +87,5 @@ LinkedList.prototype = {
     } else {
       return null;
     }
-  },
+  }
 };

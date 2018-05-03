@@ -23,9 +23,7 @@ class ArrayMatrix {
   }
 
   // 输出为普通样式的矩阵
-  outPut () {
-    
-  }
+  outPut () {}
 
   transposition () {
     const newArr = [];
@@ -89,7 +87,7 @@ function multArrayMatrix (matrixA, matrixB) {
   for (let i = 0; i < matrixA.height; i++) {
     tmpLine = [];
     for (let j = 0; j < matrixB.width; j++) {
-      tmpLine[j] = 0;      
+      tmpLine[j] = 0;
     }
     // 第i行仍然有元素
     while (mT < matrixA.arr.length && matrixA.arr[mT].i === i) {
@@ -113,31 +111,32 @@ function multArrayMatrix (matrixA, matrixB) {
   return new ArrayMatrix(answer, matrixB.width, matrixA.height);
 }
 
+const m = new ArrayMatrix(
+  [
+    new Node(0, 1, 12),
+    new Node(0, 2, 9),
+    new Node(2, 0, -3),
+    new Node(2, 5, 14),
+    new Node(3, 2, 24),
+    new Node(4, 1, 18),
+    new Node(5, 0, 15),
+    new Node(5, 3, -7)
+  ],
+  7,
+  6
+);
 
-const m = new ArrayMatrix([
-  new Node(0, 1, 12),
-  new Node(0, 2, 9),
-  new Node(2, 0, -3),
-  new Node(2, 5, 14),
-  new Node(3, 2, 24),
-  new Node(4, 1, 18),
-  new Node(5, 0, 15),
-  new Node(5, 3, -7)
-], 7, 6);
+const a = new ArrayMatrix(
+  [new Node(0, 0, 3), new Node(0, 3, 5), new Node(1, 1, -1), new Node(2, 0, 2)],
+  4,
+  3
+);
 
-const a = new ArrayMatrix([
-  new Node(0, 0, 3),
-  new Node(0, 3, 5),
-  new Node(1, 1, -1),
-  new Node(2, 0, 2)
-], 4, 3);
-
-const b = new ArrayMatrix([
-  new Node(0, 1, 2),
-  new Node(1, 0, 1),
-  new Node(2, 0, -2),
-  new Node(2, 1, 3)
-], 2, 4);
+const b = new ArrayMatrix(
+  [new Node(0, 1, 2), new Node(1, 0, 1), new Node(2, 0, -2), new Node(2, 1, 3)],
+  2,
+  4
+);
 
 console.log(m);
 console.log(m.transposition());

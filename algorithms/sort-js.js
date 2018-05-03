@@ -2,17 +2,17 @@
 // TODO all this function should use deep clone as object swap
 
 // bubble sort
-function bubbleSort(arr, compare, begin, end) {
+function bubbleSort (arr, compare, begin, end) {
   var len = arr.length;
-  if ('number' != typeof begin || 1 > begin) {
+  if (typeof begin !== 'number' || begin < 1) {
     begin = 1;
   }
-  if ('number' != typeof end || len < end || 1 > end) {
+  if (typeof end !== 'number' || len < end || end < 1) {
     end = len;
   }
   compare =
     compare ||
-    function(a, b) {
+    function (a, b) {
       if (a < b) return true;
       return false;
     };
@@ -30,17 +30,17 @@ function bubbleSort(arr, compare, begin, end) {
 }
 
 // selection sort
-function selectionSort(arr, compare, begin, end) {
+function selectionSort (arr, compare, begin, end) {
   var len = arr.length;
-  if ('number' != typeof begin || 1 > begin) {
+  if (typeof begin !== 'number' || begin < 1) {
     begin = 1;
   }
-  if ('number' != typeof end || len < end || 1 > end) {
+  if (typeof end !== 'number' || len < end || end < 1) {
     end = len;
   }
   compare =
     compare ||
-    function(a, b) {
+    function (a, b) {
       if (a < b) return true;
       return false;
     };
@@ -59,17 +59,17 @@ function selectionSort(arr, compare, begin, end) {
   }
 }
 // select two element in one traversal
-function advancedSelectionSort(arr, compare, begin, end) {
+function advancedSelectionSort (arr, compare, begin, end) {
   var len = arr.length;
-  if ('number' != typeof begin || 1 > begin) {
+  if (typeof begin !== 'number' || begin < 1) {
     begin = 1;
   }
-  if ('number' != typeof end || len < end || 1 > end) {
+  if (typeof end !== 'number' || len < end || end < 1) {
     end = len;
   }
   compare =
     compare ||
-    function(a, b) {
+    function (a, b) {
       if (a < b) return true;
       return false;
     };
@@ -102,17 +102,17 @@ function advancedSelectionSort(arr, compare, begin, end) {
 }
 
 // insertion sort
-function directInsertionSort(arr, compare, begin, end) {
+function directInsertionSort (arr, compare, begin, end) {
   var len = arr.length;
-  if ('number' != typeof begin || 1 > begin) {
+  if (typeof begin !== 'number' || begin < 1) {
     begin = 1;
   }
-  if ('number' != typeof end || len < end || 1 > end) {
+  if (typeof end !== 'number' || len < end || end < 1) {
     end = len;
   }
   compare =
     compare ||
-    function(a, b) {
+    function (a, b) {
       if (a < b) return true;
       return false;
     };
@@ -133,17 +133,17 @@ function directInsertionSort(arr, compare, begin, end) {
 
 // TODO use the best step forward
 // shell sort
-function shellSort(arr, compare, begin, end) {
+function shellSort (arr, compare, begin, end) {
   var len = arr.length;
-  if ('number' != typeof begin || 1 > begin) {
+  if (typeof begin !== 'number' || begin < 1) {
     begin = 1;
   }
-  if ('number' != typeof end || len < end || 1 > end) {
+  if (typeof end !== 'number' || len < end || end < 1) {
     end = len;
   }
   compare =
     compare ||
-    function(a, b) {
+    function (a, b) {
       if (a < b) return true;
       return false;
     };
@@ -169,17 +169,17 @@ function shellSort(arr, compare, begin, end) {
 }
 
 // quick sort
-function quickSort(arr, compare, begin, end) {
+function quickSort (arr, compare, begin, end) {
   var len = arr.length;
-  if ('number' != typeof begin || 1 > begin) {
+  if (typeof begin !== 'number' || begin < 1) {
     begin = 1;
   }
-  if ('number' != typeof end || len < end || 1 > end) {
+  if (typeof end !== 'number' || len < end || end < 1) {
     end = len;
   }
   compare =
     compare ||
-    function(a, b) {
+    function (a, b) {
       if (a < b) return true;
       return false;
     };

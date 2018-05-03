@@ -1,38 +1,38 @@
-const Node = function Node(data) {
+const Node = function Node (data) {
   this.data = data;
 };
 
-const LinearList = function LinearList() {
+const LinearList = function LinearList () {
   this.len = 0;
   this.arr = [];
 };
 
 LinearList.prototype = {
   constructor: LinearList,
-  _judgeMemory(index) {
+  _judgeMemory (index) {
     if (index >= this.len || index < 0) {
       throw new Error('out of memory');
     }
   },
-  getEle(index) {
+  getEle (index) {
     this._judgeMemory(index);
 
     return this.arr[index].data;
   },
-  insert(data, index = this.len) {
+  insert (data, index = this.len) {
     if (index > this.len || index < 0) {
       throw new Error('out of memory');
     }
-    
+
     let i = this.len;
     for (; i > index;) {
-      this.arr[i] = this.arr[--i];      
+      this.arr[i] = this.arr[--i];
     }
     this.arr[index] = new Node(data);
     this.len++;
     return true;
   },
-  delete(index) {
+  delete (index) {
     this._judgeMemory(index);
 
     let i = index;
@@ -44,9 +44,9 @@ LinearList.prototype = {
     this.len--;
     return tmp.data;
   },
-  priorEle(data) {
+  priorEle (data) {
     const index = this.arr.findIndex(item => item.data === data);
-    
+
     if (!index) {
       return null;
     }
@@ -58,7 +58,7 @@ LinearList.prototype = {
       return null;
     }
   },
-  nextEle(data) {
+  nextEle (data) {
     const index = this.arr.findIndex(item => item.data === data);
 
     if (!index) {

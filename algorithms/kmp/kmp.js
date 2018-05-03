@@ -1,8 +1,6 @@
-const { next, kmpNext } = require('./next');
+const { kmpNext } = require('./next');
 
 function simple (str, subStr, pos) {
-  var arr = Array.apply(null, new Array(subStr));
-
   let i = pos;
   let j = 0;
 
@@ -47,4 +45,7 @@ function kmp (str, subStr, pos) {
 
 // console.log(kmp('abbaaaabaabcacasdfasdf', 'abaabcac', 0));
 
-module.exports = kmp;
+module.exports = {
+  simple,
+  kmp
+};

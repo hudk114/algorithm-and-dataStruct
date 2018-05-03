@@ -2,7 +2,7 @@ const Stack = require('../data-struct/stack');
 
 // TODO
 // 原始为10进制
-const changeBase = function changeBase(value, base) {
+const changeBase = function changeBase (value, base) {
   const stack = new Stack();
 
   let v = value || 0;

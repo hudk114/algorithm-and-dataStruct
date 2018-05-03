@@ -1,4 +1,4 @@
-const Stack = function() {
+const Stack = function () {
   this.top = 0;
   this.base = 0;
   this.arr = [];
@@ -6,29 +6,29 @@ const Stack = function() {
 
 Stack.prototype = {
   constructor: Stack,
-  push: function(obj) {
+  push: function (obj) {
     this.arr.push(obj);
     this.top++;
   },
-  pop: function() {
+  pop: function () {
     if (this.top <= this.base) return null;
     const t = this.arr.pop();
     this.top--;
     return t;
   },
-  getLength: function() {
+  getLength: function () {
     return this.top - this.base;
   },
-  getTop: function() {
+  getTop: function () {
     if (this.top <= this.base) return null;
     return this.arr[this.top - 1];
   },
-  empty: function() {
+  empty: function () {
     this.top = 0;
     this.base = 0;
     this.arr = [];
   },
-  isEmpty() {
+  isEmpty () {
     return this.getLength() === 0;
   }
 };
